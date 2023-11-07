@@ -1,0 +1,21 @@
+.ion_valid {
+    color: rgb(0, 177, 0);
+    border: 2px solid rgb(0, 177, 0);
+
+}
+
+.ion_invalid {
+    color: red;
+    border: 2px solid red;
+}
+
+.ion_valide {
+    color: rgb(0, 177, 0);
+    border: 2px solid rgb(0, 177, 0);
+
+}
+
+.ion_invalide {
+    color: red;
+    border: 2px solid red;
+}

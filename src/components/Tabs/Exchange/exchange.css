@@ -1,0 +1,11 @@
+.refuse {
+    color: red;
+}
+
+.confirme {
+    color: green;
+}
+
+.attente {
+    color: rgb(255, 213, 0);
+}
