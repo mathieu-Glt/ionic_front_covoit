@@ -1,7 +1,8 @@
-import { IonHeader, IonTitle, IonNav, IonToolbar, IonNavLink, IonContent, IonItem, IonLabel, IonList, IonButton, IonImg, IonCard, IonCardTitle, IonCardContent } from "@ionic/react";
+import { IonHeader, IonTitle, IonNav, IonToolbar, IonNavLink, IonContent, IonItem, IonLabel, IonList, IonButton, IonImg, IonCard, IonCardTitle, IonCardContent, IonBackButton, IonButtons } from "@ionic/react";
 import { useEffect, useState } from 'react';
 import { useParams } from "react-router";
 import { getAssociationById } from "../../services/api/association";
+import AssociationListPage from "./AssociationListPage";
 
 export default function AssociationReadPage() {
 
@@ -16,40 +17,48 @@ export default function AssociationReadPage() {
     useEffect(() => {
         // function that load an association by its id
         async function loadAssoById(): Promise<void> {
-          try {
-            const event: object | undefined = await getAssociationById(id);
-            if(event) {
-                setAssociation(event);
+            try {
+                const event: object | undefined = await getAssociationById(id);
+                if (event) {
+                    setAssociation(event);
+                    setIsLoading(false)
+                }
+
+
+            } catch (error) {
+                console.log("🚀 ~ file: EventReadPage.tsx:23 ~ loadEventById ~ error:", error)
+                setError(error)
                 setIsLoading(false)
+
             }
-
-            
-        } catch (error) {
-            console.log("🚀 ~ file: EventReadPage.tsx:23 ~ loadEventById ~ error:", error)
-            setError(error)
-            setIsLoading(false)
-            
         }
+        loadAssoById();
+    }, [id])
+
+    const handleClick = () => {
+        console.log('clique bouton');
+        console.log(window.history);
+        window.history.back()
     }
-    loadAssoById();
-}, [id])
+
+    if (isLoading) {
+        return <div>Loading an association...</div>
+    };
+
+    if (error) {
+        return <div>Error: {error.message}</div>
+    }
+    console.log("🚀 ~ file: AssociationReadPage.tsx:9 ~ function ~ association:", association)
 
 
-if (isLoading) {
-    return <div>Loading an association...</div>
-};
-
-if (error) {
-    return <div>Error: {error.message}</div>
-}
-console.log("🚀 ~ file: AssociationReadPage.tsx:9 ~ function ~ association:", association)
-
-
-return (
-    <>
+    return (
+        <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page d'une association</IonTitle>
+                    <IonButtons slot="start">
+                            <IonButton onClick={handleClick}>Back</IonButton>
+                    </IonButtons>
+                    <IonTitle>Page association</IonTitle>
                 </IonToolbar>
             </IonHeader>
 
@@ -60,8 +69,8 @@ return (
 
             </IonCard>
 
- 
-    </>
-)
+
+        </>
+    )
 
 }

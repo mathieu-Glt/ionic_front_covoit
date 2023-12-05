@@ -51,7 +51,7 @@ export default function RequestListPage() {
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page requests user</IonTitle>
+                    <IonTitle>Page demandes </IonTitle>
                 </IonToolbar>
             </IonHeader>
 

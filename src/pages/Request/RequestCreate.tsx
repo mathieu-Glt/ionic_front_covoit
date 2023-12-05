@@ -49,6 +49,11 @@ export default function CreateRequest() {
             // function that create a new request
             const response: object | undefined = await createRequest(event_id, request)
             console.log("🚀 ~ file: RequestCreate.tsx:43 ~ handleRequestSubmitForm ~ response:", response)
+            if(response?.status === 200 ) {
+                setTimeout(()=> {
+                    window.location.href = "/tabs/requests"
+                })
+            }
         } catch (error) {
             console.log("🚀 ~ file: RequestCreate.tsx:46 ~ handleRequestSubmitForm ~ error:", error)
         }
@@ -58,10 +63,9 @@ export default function CreateRequest() {
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page create request user</IonTitle>
+                    <IonTitle>Page  demande trajet</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <h3 className="title_form">Create new request</h3>
             <form className="create_request_from" onSubmit={handleRequestSubmitForm} >
                 <label htmlFor="firstname">firstname  </label>
                 <input

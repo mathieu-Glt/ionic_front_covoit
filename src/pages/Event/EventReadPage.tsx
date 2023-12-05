@@ -1,4 +1,4 @@
-import { IonHeader, IonTitle, IonNav, IonToolbar, IonNavLink, IonContent, IonItem, IonLabel, IonList, IonButton, IonImg, IonCard, IonCardTitle, IonCardContent } from "@ionic/react";
+import { IonHeader, IonTitle, IonNav, IonToolbar, IonNavLink, IonContent, IonItem, IonLabel, IonList, IonButton, IonImg, IonCard, IonCardTitle, IonCardContent, IonButtons } from "@ionic/react";
 import { useEffect, useState } from 'react';
 import { getEventById } from "../../services/api/events";
 import { useParams } from "react-router";
@@ -14,45 +14,55 @@ export default function EventReadPage() {
     console.log("🚀 ~ file: EventReadPage.tsx:12 ~ EventReadPage ~ params:", params)
     const id: string | undefined = params.id
 
-    
-    
+
+
     useEffect(() => {
         //  function that get an event by its id
         async function loadEventById(): Promise<void> {
-          try {
-            const event: object | undefined = await getEventById(id);
-            if(event) {
-                setEvent(event);
+            try {
+                const event: object | undefined = await getEventById(id);
+                if (event) {
+                    setEvent(event);
+                    setIsLoading(false)
+                }
+
+
+            } catch (error) {
+                console.log("🚀 ~ file: EventReadPage.tsx:23 ~ loadEventById ~ error:", error)
+                setError(error)
                 setIsLoading(false)
+
             }
-
-            
-        } catch (error) {
-            console.log("🚀 ~ file: EventReadPage.tsx:23 ~ loadEventById ~ error:", error)
-            setError(error)
-            setIsLoading(false)
-            
         }
+        loadEventById();
+    }, [id])
+
+    const handleClick = () => {
+        console.log('clique bouton');
+        console.log(window.history);
+        window.history.back()
     }
-    loadEventById();
-}, [id])
 
 
-if (isLoading) {
-    return <div>Loading event...</div>
-      };
-      
-      if (error) {
-          return <div>Error: {error.message}</div>
-        }
-        
-        
-        console.log("🚀 ~ file: EventReadPage.tsx:13 ~ loadEventById ~ event:", event)
-      return (
+
+    if (isLoading) {
+        return <div>Loading event...</div>
+    };
+
+    if (error) {
+        return <div>Error: {error.message}</div>
+    }
+
+
+    console.log("🚀 ~ file: EventReadPage.tsx:13 ~ loadEventById ~ event:", event)
+    return (
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page d'un évènement</IonTitle>
+                    <IonButtons slot="start">
+                        <IonButton onClick={handleClick}>Back</IonButton>
+                    </IonButtons>
+                    <IonTitle>Page évènement</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonCard color="light">
@@ -64,9 +74,9 @@ if (isLoading) {
                 <IonCardContent>heure : {event.endTime}</IonCardContent>
                 <IonButton color="secondary" routerLink={`/tabs/requests/add/${event._id}`}>Create request</IonButton>
             </IonCard>
-  
+
         </>
-      )
-    
-    
+    )
+
+
 }
