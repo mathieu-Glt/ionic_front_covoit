@@ -8,13 +8,23 @@ const api = useApi();
 
 
 // function for login the user
-export async function loginUser(body: LoginInterface): Promise<object | undefined> {
+export async function loginUser(body: LoginInterface): Promise<object | null> {
     try {
         const login = await api.post('auth/login', body)
         console.log("🚀 ~ file: auth.ts:14 ~ loginUser ~ login:", login)
         return login;
     } catch (error) {
         throw new Error("echec de la connection " + error);
+    }
+}
+
+// function logout user
+export async function logout() {
+    try {
+        const logout = await api.get('auth/logout')
+        return logout
+    } catch (error) {
+        throw new Error("echec de la déconnection" + error);
     }
 }
 

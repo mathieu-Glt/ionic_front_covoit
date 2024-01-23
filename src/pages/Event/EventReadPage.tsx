@@ -2,7 +2,8 @@ import { IonHeader, IonTitle, IonNav, IonToolbar, IonNavLink, IonContent, IonIte
 import { useEffect, useState } from 'react';
 import { getEventById } from "../../services/api/events";
 import { useParams } from "react-router";
-
+import LogoutButton from "../../components/Logout/Logout";
+import './event.css'
 
 
 export default function EventReadPage() {
@@ -59,10 +60,13 @@ export default function EventReadPage() {
         <>
             <IonHeader>
                 <IonToolbar>
+                <div className="navbar">
                     <IonButtons slot="start">
                         <IonButton onClick={handleClick}>Back</IonButton>
                     </IonButtons>
                     <IonTitle>Page évènement</IonTitle>
+                    <LogoutButton/>
+                </div>
                 </IonToolbar>
             </IonHeader>
             <IonCard color="light">

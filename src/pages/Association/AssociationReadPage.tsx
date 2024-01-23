@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router";
 import { getAssociationById } from "../../services/api/association";
 import AssociationListPage from "./AssociationListPage";
+import LogoutButton from "../../components/Logout/Logout";
 
 export default function AssociationReadPage() {
 
@@ -55,10 +56,13 @@ export default function AssociationReadPage() {
         <>
             <IonHeader>
                 <IonToolbar>
+                <div className="navbar">
                     <IonButtons slot="start">
                             <IonButton onClick={handleClick}>Back</IonButton>
                     </IonButtons>
                     <IonTitle>Page association</IonTitle>
+                    <LogoutButton />
+                </div>
                 </IonToolbar>
             </IonHeader>
 

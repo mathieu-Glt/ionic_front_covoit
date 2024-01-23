@@ -1,4 +1,4 @@
-import { IonHeader, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonButtons, IonHeader, IonTitle, IonToolbar } from "@ionic/react";
 import { ChangeEvent, useState } from "react";
 import { useParams } from "react-router-dom";
 import { updateRequest } from "../../services/api/requests";
@@ -32,37 +32,48 @@ export default function UpdateRequest() {
     })
     console.log("🚀 ~ file: RequestUpdate.tsx:33 ~ updateRequest ~ request:", request)
 
-    
+
     // function triggered when inputs change
     function handleChange(e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>): void {
         const { name, value }: any = e.target;
-        setRequest({ ...request, [name]: value})
+        setRequest({ ...request, [name]: value })
     }
 
-    
+
     // function triggered when submitting the form
     async function handleRequestSubmitForm(e: React.FormEvent<HTMLFormElement>): Promise<void> {
         e.preventDefault();
         try {
             const response: object | undefined = await updateRequest(event_id, request)
             console.log("🚀 ~ file: RequestUpdate.tsx:48 ~ handleRequestSubmitForm ~ response:", response)
-            if(response.status === 200) {
+            if (response.status === 200) {
                 console.log('requests succefull');
                 setTimeout(() => {
                     location.href = "/tabs/requests"
-                 })
+                })
             }
         } catch (error) {
             console.log("🚀 ~ file: RequestCreate.tsx:46 ~ handleRequestSubmitForm ~ error:", error)
         }
     }
 
+    const handleClick = () => {
+        console.log('clique bouton');
+        console.log(window.history);
+        window.history.back()
+    }
+
+
 
     return (
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page update request user</IonTitle>
+                    <IonButtons slot="start">
+                        <IonButton onClick={handleClick}>Back</IonButton>
+                    </IonButtons>
+
+                    <IonTitle>Page mise à jour demande</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <h3 className="title_form">Update request</h3>
@@ -78,28 +89,28 @@ export default function UpdateRequest() {
                     defaultValue={userParse.firstname}
                 />
                 <label htmlFor="nbSeat">Number  Seat</label>
-                <select 
+                <select
                     className=""
                     name="nbSeat"
                     id="nbSeat"
                     onChange={(e) => handleChange(e)}
                     value={request.nbSeat}>
-                        <option value="">Select at least a place</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                    <option value="">Select at least a place</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
                 </select>
                 <label htmlFor="direction">Direction trajet</label>
-                <select 
+                <select
                     className=""
                     name="direction"
                     id="direction"
                     onChange={(e) => handleChange(e)}
                     value={request.direction}>
-                        <option value="">Select a direction</option>
-                        <option value="complet">Complet</option>
-                        <option value="Aller">Aller</option>
-                        <option value="Retour">Retour</option>
+                    <option value="">Select a direction</option>
+                    <option value="complet">Complet</option>
+                    <option value="Aller">Aller</option>
+                    <option value="Retour">Retour</option>
                 </select>
                 <label htmlFor="departureTime">Departure hour</label>
                 <input
@@ -112,15 +123,15 @@ export default function UpdateRequest() {
                     value={userParse.departureTime}
                 />
                 <label htmlFor="type">Announcement</label>
-                <select 
+                <select
                     className=""
                     name="type"
                     id="type"
                     onChange={(e) => handleChange(e)}
                     value={request.type}>
-                        <option value="">What type announcement ?</option>
-                        <option value="Demande">Aller</option>
-                        <option value="Propose">Retour</option>
+                    <option value="">What type announcement ?</option>
+                    <option value="Demande">Aller</option>
+                    <option value="Propose">Retour</option>
                 </select>
                 <label htmlFor="pickupAddress">Address meeting</label>
                 <input

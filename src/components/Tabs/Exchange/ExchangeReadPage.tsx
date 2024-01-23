@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from "react-router";
 import { getExchangeById } from "../../../services/api/exchanges";
 import './exchange.css'
+import { getAllRequestsOfAnUserRelatedToEvent } from "../../../services/api/requests";
 
 
 export default function ExchangeReadPage() {
@@ -13,12 +14,21 @@ export default function ExchangeReadPage() {
     const params = useParams()
     console.log("🚀 ~ file: ExchangeReadPage.tsx:13 ~ ExchangeReadPage ~ params:", params)
     const id: string | undefined = params.id
+    console.log("🚀 ~ file: ExchangeReadPage.tsx:17 ~ ExchangeReadPage ~ id:", id)
+    const userStorage: string | null = localStorage.getItem("user")
+    const userParse: object = JSON.parse(userStorage)
+    console.log("🚀 ~ file: RequestListPage.tsx:13 ~ RequestListPage ~ userParse:", userParse)
+    const idUser: string | undefined = userParse.id
+
 
     useEffect(() => {
         // function that load exchange with its id
         async function loadExchangeById(): Promise<void> {
             try {
                 const exchange: object | undefined = await getExchangeById(id)
+                const requests: object | undefined = await getAllRequestsOfAnUserRelatedToEvent(idUser)
+                console.log("🚀 ~ file: ExchangeReadPage.tsx:29 ~ loadExchangeById ~ requests:", requests)
+
                 setExchange(exchange)
                 setIsLoading(false)
 
@@ -65,7 +75,7 @@ export default function ExchangeReadPage() {
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page d'un échange</IonTitle>
+                    <IonTitle>Echange </IonTitle>
                 </IonToolbar>
                 <IonButtons slot="start">
                 {/* <IonBackButton defaultHref="/tabs/requests" /> */}

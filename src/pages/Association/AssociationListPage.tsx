@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { findAssociationRelatedUser } from "../../services/api/association";
 import pathPicture from '../../assets/association/1.jpg'
 import { getEventRelatedToAssociation } from "../../services/api/events";
+import LogoutButton from "../../components/Logout/Logout";
 
 export default function AssociationListPage() {
 
@@ -62,7 +63,11 @@ export default function AssociationListPage() {
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page associations</IonTitle>
+                    <div className="navbar">
+
+                        <IonTitle>Page associations</IonTitle>
+                        <LogoutButton />
+                    </div>
                 </IonToolbar>
             </IonHeader>
             {isLoading ?

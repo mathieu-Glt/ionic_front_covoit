@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { getAllRequestsOfAnUserRelatedToEvent } from "../../services/api/requests";
 import ExchangeReadPage from "../../components/Tabs/Exchange/ExchangeReadPage";
 import Delete from "../../components/Delete/Delete";
-
+import LogoutButton from "../../components/Logout/Logout";
+import './request.css'
 export default function RequestListPage() {
 
     const [requests, setRequests] = useState<object | undefined>({});
@@ -14,8 +15,9 @@ export default function RequestListPage() {
     const userParse: object = JSON.parse(userStorage)
     console.log("🚀 ~ file: RequestListPage.tsx:13 ~ RequestListPage ~ userParse:", userParse)
     const idUser: string | undefined = userParse.id
+    console.log("🚀 ~ RequestListPage ~ idUser:", idUser)
     
-
+    
     
     useEffect(() => {
         async function loadRequest(): Promise<void> {
@@ -36,7 +38,8 @@ export default function RequestListPage() {
         }
         loadRequest();
     }, [])
-
+    
+    console.log("🚀 ~ RequestListPage ~ requests:", requests)
 
     if (isLoading) {
         return <div>Loading requests...</div>
@@ -51,7 +54,10 @@ export default function RequestListPage() {
         <>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Page demandes </IonTitle>
+                <div className="navbar">
+                    <IonTitle>Liste de mes demandes </IonTitle>
+                <LogoutButton />
+            </div>
                 </IonToolbar>
             </IonHeader>
 
@@ -65,7 +71,7 @@ export default function RequestListPage() {
                     <IonCardTitle > Request n°{i+1}</IonCardTitle>
 
                         </IonCardHeader>
-                        <IonCardContent >event : {r.event.description}</IonCardContent>
+                        {/* <IonCardContent >event : {r.event.description}</IonCardContent> */}
                         <img src="https://www.suisse-normande.com/wp-content/uploads/2023/07/Ex%C3%A9-Affiche-La-boucle-est-Boucl%C3%A9e-BD_page-0001-722x1024.jpg" height='80' width='60'/>
                         <IonCardContent >name : {r.firstname}</IonCardContent>
                         <IonCardContent >departure : {r.departureTime}</IonCardContent>

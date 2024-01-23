@@ -1,4 +1,5 @@
 import { IonRedirect } from "@ionic/react";
+import { Redirect } from "react-router";
 
 
 export default function PrivateRoutes({ children } : any) {
@@ -7,6 +8,6 @@ export default function PrivateRoutes({ children } : any) {
     console.log("🚀 ~ file: PrivateRoute.tsx:7 ~ PrivateRoutes ~ auth:", auth)
 
     return (
-        auth ? children : <IonRedirect to="/" />
+        auth ? children : <Redirect to="/" />
     )
 }

@@ -2,8 +2,9 @@ import { IonHeader, IonTitle, IonNav, IonToolbar, IonNavLink, IonContent, IonIte
 import { useEffect, useState } from 'react';
 import { getEventRelatedToAssociation } from "../../services/api/events";
 import { findAssociationRelatedUser } from "../../services/api/association";
-
-
+import './event.css'
+import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutButton from "../../components/Logout/Logout";
 
 export default function EventListPage() {
 
@@ -70,7 +71,12 @@ export default function EventListPage() {
     <>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Page évènements</IonTitle>
+          <div className="navbar">
+            <IonTitle>Page évènements </IonTitle>
+            {/* <button className="logout">Logout</button> */}
+            <LogoutButton />
+
+          </div>
         </IonToolbar>
       </IonHeader>
       <IonContent color="light" >
